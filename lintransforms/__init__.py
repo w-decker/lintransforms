@@ -14,4 +14,10 @@ from .solvers import (
     SolveOrthogonalProjection
 )
 
-from .utils import correlate
+from .utils import (
+    correlate,
+    issymmetric,
+    issquare,
+    isidempotent,
+    isfullrank
+)
