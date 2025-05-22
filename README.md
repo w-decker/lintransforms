@@ -42,7 +42,6 @@ You can also apply multiple transformations sequentially with `lintransforms.pip
 ```python
 from lintransforms.pipeline import Pipeline
 from lintransforms.transformations import Rotation, Identity
-from lintransforms.solvers import LeastSquares
 import numpy as np
 
 # random matrix
