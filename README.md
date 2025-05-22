@@ -10,10 +10,10 @@ pip install git+https://github.com/w-decker/lintransforms.git
 
 ## Transformations
 
-There are seven transformations to impose: `Identity`, `Rotation`, `Inverse`, `Reflection`, `Dilation`, `Shear` and `Projection`.
+There are nine transformations to impose: `Identity`, `Linear`, `Translation`, `Rotation`, `Inverse`, `Reflection`, `Dilation`, `Shear` and `Projection`.
 
 ## Solvers
-There are two general solvers: `MoorePenrosePseudoInverse` and `LeastSquares` as well as a projection-specific `SolveOrthogonalProjection`. 
+There are five general solvers: `ExactSolver`, `MoorePenrosePseudoInverse` and `LeastSquares`, `MultiTaskLasso` and `Ridge` as well as a projection-specific solver: `SolveOrthogonalProjection`. 
 
 # Example usage
 
@@ -23,7 +23,7 @@ from lintransforms.solvers import LeastSquares
 import numpy as np
 
 # random matrix
-X = np.random.randn(100, 5)
+X = np.random.randn(5, 5)
 
 # rotation matrix
 Q, _ = np.linalg.qr(np.random.randn(5, 5))  # Orthonormal matrix
@@ -37,23 +37,32 @@ solver = LeastSquares()
 W = solver.solve(X, Y)
 ```
 
-You can also apply multiple transformations sequentially with `lintransforms.pipeline.Pipeline`. 
+You can also apply multiple transformations and test out multiple solvers sequentially with `lintransforms.pipeline.Pipeline`. 
 
 ```python
 from lintransforms.pipeline import Pipeline
 from lintransforms.transformations import Rotation, Identity
+from lintransforms.solvers import ExactSolver, LeastSquares
 import numpy as np
 
 # random matrix
-X = np.random.randn(100, 5)
+X = np.random.randn(5, 5)
 Q, _ = np.linalg.qr(np.random.randn(5, 5))  # Orthonormal matrix
 
 # pipeline
-pipeline = Pipeline([
+pipeline = Pipeline(
+    [
     Rotation(Q),
-    Identity(),
+    Identity()
+],
+[
+    ExactSolver(),
+    LeastSquares()
 ])
 
 # apply transformations
 Y = pipeline.apply(X)
+
+# recover transformation matrices for different solvers
+solutions_dict = pipeline.solve(X, Y)
 ```
