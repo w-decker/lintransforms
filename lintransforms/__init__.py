@@ -1,5 +1,7 @@
 from .transformations import (
     Identity,
+    Linear,
+    Translation,
     Rotation,
     Inverse, 
     Reflection, 
@@ -11,7 +13,10 @@ from .transformations import (
 from .solvers import (
     MoorePenrosePseudoInverse,
     LeastSquares,
-    SolveOrthogonalProjection
+    SolveOrthogonalProjection,
+    ExactSolver,
+    MultiTaskLasso,
+    Ridge
 )
 
 from .utils import (
