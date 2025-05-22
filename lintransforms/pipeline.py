@@ -1,12 +1,13 @@
 from .transformations import Transformation
 from typing import List
+from dataclasses import dataclass
 
+@dataclass
 class Pipeline(Transformation):
     """
     Applies a sequence of Transformation objects in order.
     """
-    def __init__(self, transforms: List[Transformation]):
-        self.transforms = transforms
+    transforms: List[Transformation]
 
     def apply(self, x):
         for transform in self.transforms:
