@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import numpy as np
-from utils import isfullrank
+from .utils import isfullrank
 from warnings import warn
 
 class BaseSolver(ABC):
