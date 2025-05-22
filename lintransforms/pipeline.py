@@ -9,7 +9,7 @@ from .solvers import Solver
 @dataclass
 class Pipeline:
     """
-    Applies a sequence of Transformation objects in order.
+    Applies a sequence of Transformation objects and/or Solver objects in order.
     """
     __slots__ = ['transformations', 'solvers']
     
