@@ -1,4 +1,5 @@
 from .transformations import (
+    Transformation,
     Identity,
     Linear,
     Translation,
@@ -11,6 +12,7 @@ from .transformations import (
 )
 
 from .solvers import (
+    Solver,
     MoorePenrosePseudoInverse,
     LeastSquares,
     SolveOrthogonalProjection,
