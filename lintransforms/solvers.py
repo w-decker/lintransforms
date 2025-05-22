@@ -43,7 +43,7 @@ class Solver(ABC):
     def __repr__(self):
         return self.name
     
-class ExactSolver(Solver):
+class Exact(Solver):
     """
     Exact solver.
     """
@@ -82,7 +82,7 @@ class LeastSquares(Solver):
     def name(self) -> str:
         return "Least Squares"
     
-class SolveOrthogonalProjection(Solver):
+class OrthogonalProjection(Solver):
     """
     Projection solver.
     """

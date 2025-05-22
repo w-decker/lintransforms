@@ -15,8 +15,8 @@ from .solvers import (
     Solver,
     MoorePenrosePseudoInverse,
     LeastSquares,
-    SolveOrthogonalProjection,
-    ExactSolver,
+    OrthogonalProjection,
+    Exact,
     MultiTaskLasso,
     Ridge
 )
