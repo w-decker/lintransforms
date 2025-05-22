@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 import numpy as np
-from .utils import isfullrank
 from warnings import warn
+from dataclasses import dataclass
 
-class BaseSolver(ABC):
+from .utils import isfullrank, issquare
+
+class Solver(ABC):
 
     @abstractmethod
     def solve(self, x: np.ndarray, y:np.ndarray) -> np.ndarray:
@@ -40,8 +42,25 @@ class BaseSolver(ABC):
 
     def __repr__(self):
         return self.name
+    
+class ExactSolver(Solver):
+    """
+    Exact solver.
+    """
+    def solve(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        if not issquare(x):
+            raise np.linalg.LinAlgError("Matrix is not square.")
+        
+        if not isfullrank(x):
+            raise np.linalg.LinAlgError("Matrix is rank deficient.")
+        
+        return np.linalg.solve(x, y)
 
-class MoorePenrosePseudoInverse(BaseSolver):
+    @property
+    def name(self) -> str:
+        return "Exact Solver"
+
+class MoorePenrosePseudoInverse(Solver):
     """
     Moore-Penrose pseudo-inverse solver.
     """
@@ -52,7 +71,7 @@ class MoorePenrosePseudoInverse(BaseSolver):
     def name(self) -> str:
         return "Moore-Penrose Pseudo-Inverse"
     
-class LeastSquares(BaseSolver):
+class LeastSquares(Solver):
     """
     Least squares solver.
     """
@@ -63,7 +82,7 @@ class LeastSquares(BaseSolver):
     def name(self) -> str:
         return "Least Squares"
     
-class SolveOrthogonalProjection(BaseSolver):
+class SolveOrthogonalProjection(Solver):
     """
     Projection solver.
     """
@@ -84,3 +103,41 @@ class SolveOrthogonalProjection(BaseSolver):
     @property
     def name(self) -> str:
         return "Orthogonal Projection"
+
+class MultiTaskLasso(Solver):
+    """
+    LASSO solver.
+    Wrapper around sklearn.linear_model.MultiTaskLasso.
+    """
+    def __init__(self, alpha=1.0, **kwargs):
+        self.alpha = alpha
+        self.kwargs = kwargs
+ 
+    def solve(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        from sklearn.linear_model import MultiTaskLasso as SklearnMultiTaskLasso
+        model = SklearnMultiTaskLasso(alpha=self.alpha, **self.kwargs)
+        model.fit(x, y)
+        return model.coef_
+
+    @property
+    def name(self) -> str:
+        return "LASSO"
+
+class Ridge(Solver):
+    """
+    Ridge regression solver.
+    Wrapper around sklearn.linear_model.Ridge.
+    """
+    def __init__(self, alpha=1.0, **kwargs):
+        self.alpha = alpha
+        self.kwargs = kwargs
+
+    def solve(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        from sklearn.linear_model import Ridge as SklearnRidge
+        model = SklearnRidge(alpha=self.alpha, **self.kwargs)
+        model.fit(x, y)
+        return model.coef_
+
+    @property
+    def name(self) -> str:
+        return "Ridge"
