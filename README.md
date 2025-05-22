@@ -20,6 +20,7 @@ There are two general solvers: `MoorePenrosePseudoInverse` and `LeastSquares` as
 ```python
 from lintransforms.transformations import Rotation
 from lintransforms.solvers import LeastSquares
+import numpy as np
 
 # random matrix
 X = np.random.randn(100, 5)
@@ -34,4 +35,26 @@ Y = rotation.apply(X)
 # recover transformation matrix
 solver = LeastSquares()
 W = solver.solve(X, Y)
+```
+
+You can also apply multiple transformations sequentially with `lintransforms.pipeline.Pipeline`. 
+
+```python
+from lintransforms.pipeline import Pipeline
+from lintransforms.transformations import Rotation, Identity
+from lintransforms.solvers import LeastSquares
+import numpy as np
+
+# random matrix
+X = np.random.randn(100, 5)
+Q, _ = np.linalg.qr(np.random.randn(5, 5))  # Orthonormal matrix
+
+# pipeline
+pipeline = Pipeline([
+    Rotation(Q),
+    Identity(),
+])
+
+# apply transformations
+Y = pipeline.apply(X)
 ```
