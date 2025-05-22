@@ -52,6 +52,37 @@ class Identity(Transformation):
     @property
     def name(self) -> str:
         return "Identity"
+    
+@dataclass
+class Linear(Transformation):
+    """
+    Linear transformation of input data.
+    """
+    matrix: np.ndarray = None
+
+    def apply(self, x: np.ndarray) -> np.ndarray:
+        if x.shape[-1] != self.matrix.shape[0]:
+            raise ValueError("Last dimension must match matrix size.")
+        return np.dot(x, self.matrix)
+
+    @property
+    def name(self) -> str:
+        return f"Linear"
+    
+class Translation(Transformation):
+    """
+    Translate the input data by a given vector.
+    """
+    translation: np.ndarray = None
+
+    def apply(self, x: np.ndarray) -> np.ndarray:
+        if x.shape[-1] != self.translation.shape[0]:
+            raise ValueError("Last dimension must match translation vector size.")
+        return x + self.translation
+
+    @property
+    def name(self) -> str:
+        return f"Translation"
 
 @dataclass
 class Rotation(Transformation):
