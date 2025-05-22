@@ -69,6 +69,7 @@ class Linear(Transformation):
     def name(self) -> str:
         return f"Linear"
     
+@dataclass
 class Translation(Transformation):
     """
     Translate the input data by a given vector.
