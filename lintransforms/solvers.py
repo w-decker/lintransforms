@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from utils import isfullrank
+from warnings import warn
 
 class BaseSolver(ABC):
 
@@ -67,9 +69,17 @@ class SolveOrthogonalProjection(BaseSolver):
     """
 
     def solve(self, x: np.ndarray) -> np.ndarray:
-        A = x
-        P = A @ np.linalg.pinv(A) # for rank deficient A
-        return P
+        if isfullrank(x):
+            A = x
+            AtA = A.T @ A
+            inv_AtA = np.linalg.inv(AtA)
+            P = A @ inv_AtA @ A.T
+            return P
+        else:
+            warn("Matrix is rank deficient. Using pseudo-inverse instead.")
+            A = x
+            P = A @ np.linalg.pinv(A) # for rank deficient A
+            return P
     
     @property
     def name(self) -> str:
