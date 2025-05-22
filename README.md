@@ -1,4 +1,4 @@
-# TaskTransforms-simulations
+# Lintransforms
 
 Apply various linear transformations on $n$ -dimensional matrices and solve for their transformation matrix. 
 
