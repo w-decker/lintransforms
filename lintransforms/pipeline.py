@@ -1,20 +1,19 @@
 from typing import List, final
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import numpy as np
 
 from .transformations import Transformation
 from .solvers import Solver
 
 @final
-@dataclass
+@dataclass(slots=True)
 class Pipeline:
     """
     Applies a sequence of Transformation objects and/or Solver objects in order.
     """
-    __slots__ = ['transformations', 'solvers']
     
-    transformations: List[Transformation]
-    solvers: List[Solver]
+    transformations: List[Transformation] = field(default_factory=list)
+    solvers: List[Solver] = field(default_factory=list)
 
     def apply(self, x):
         for transform in self.transformations:
