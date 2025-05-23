@@ -55,7 +55,7 @@ pipeline = Pipeline([
     Identity()
 ],
 [
-    ExactSolver(),
+    Exact(),
     LeastSquares()
 ])
 
