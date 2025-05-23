@@ -42,7 +42,7 @@ You can also apply multiple transformations and test out multiple solvers sequen
 ```python
 from lintransforms.pipeline import Pipeline
 from lintransforms.transformations import Rotation, Identity
-from lintransforms.solvers import ExactSolver, LeastSquares
+from lintransforms.solvers import Exact, LeastSquares
 import numpy as np
 
 # random matrix
@@ -50,8 +50,7 @@ X = np.random.randn(5, 5)
 Q, _ = np.linalg.qr(np.random.randn(5, 5))  # Orthonormal matrix
 
 # pipeline
-pipeline = Pipeline(
-    [
+pipeline = Pipeline([
     Rotation(Q),
     Identity()
 ],
