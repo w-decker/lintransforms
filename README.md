@@ -13,7 +13,7 @@ pip install git+https://github.com/w-decker/lintransforms.git
 There are nine transformations to impose: `Identity`, `Linear`, `Translation`, `Rotation`, `Inverse`, `Reflection`, `Dilation`, `Shear` and `Projection`.
 
 ## Solvers
-There are five general solvers: `ExactSolver`, `MoorePenrosePseudoInverse` and `LeastSquares`, `MultiTaskLasso` and `Ridge` as well as a projection-specific solver: `SolveOrthogonalProjection`. 
+There are five general solvers: `Exact`, `PseudoInverse` and `LeastSquares`, `MultiTaskLasso` and `Ridge` as well as a projection-specific solver: `OrthogonalProjection`. 
 
 # Example usage
 
