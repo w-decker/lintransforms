@@ -60,7 +60,7 @@ class Exact(Solver):
     def name(self) -> str:
         return "Exact Solver"
 
-class MoorePenrosePseudoInverse(Solver):
+class PseudoInverse(Solver):
     """
     Moore-Penrose pseudo-inverse solver.
     """
