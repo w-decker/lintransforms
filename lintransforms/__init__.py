@@ -21,6 +21,8 @@ from .solvers.linear import (
     Ridge
 )
 
+from solvers.nn import MLP
+
 from .utils import (
     correlate,
     issymmetric,
