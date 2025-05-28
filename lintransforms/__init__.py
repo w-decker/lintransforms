@@ -13,7 +13,7 @@ from .transformations import (
 
 from .solvers import (
     Solver,
-    MoorePenrosePseudoInverse,
+    PseudoInverse,
     LeastSquares,
     OrthogonalProjection,
     Exact,
