@@ -2,8 +2,10 @@ from typing import List, final
 from dataclasses import dataclass, field
 import numpy as np
 
-from .transformations import Transformation
-from .solvers import Solver
+from .utils import (
+    Transformation, 
+    Solver
+)
 
 @final
 @dataclass(slots=True)

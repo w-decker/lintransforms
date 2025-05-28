@@ -1,46 +1,10 @@
 """Library of linear transformations to apply to n-dimensional matrices"""
 
 import numpy as np
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from einops import rearrange
 
-class Transformation(ABC):
-    """
-    Abstract class for transformations.
-    """
-    @abstractmethod
-    def apply(self, x: np.ndarray) -> np.ndarray:
-        """
-        Apply the transformation to the input data.
-
-        Parameters
-        ----------
-        x : np.ndarray
-            Input data.
-
-        Returns
-        -------
-        np.ndarray
-            Transformed data.
-        """
-        pass
-
-    @property
-    @abstractmethod
-    def name(self) -> str:
-        """
-        Name of the transformation.
-
-        Returns
-        -------
-        str
-            Name of the transformation.
-        """
-        pass
-
-    def __repr__(self):
-        return self.name
+from .utils import Transformation
 
 class Identity(Transformation):
     """

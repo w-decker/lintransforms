@@ -11,7 +11,7 @@ from .transformations import (
     Projection
 )
 
-from .solvers import (
+from .solvers.linear import (
     Solver,
     PseudoInverse,
     LeastSquares,

@@ -1,47 +1,9 @@
-from abc import ABC, abstractmethod
+"""Library of linear mapping solvers for n-dimensional matrices"""
+
 import numpy as np
 from warnings import warn
-from dataclasses import dataclass
 
-from .utils import isfullrank, issquare
-
-class Solver(ABC):
-
-    @abstractmethod
-    def solve(self, x: np.ndarray, y:np.ndarray) -> np.ndarray:
-        """
-        Approximate the transformation of the input data to the output data.
-
-        Parameters
-        ----------
-        x : np.ndarray
-            Input data.
-
-        y : np.ndarray
-            Output data.
-
-        Returns
-        -------
-        np.ndarray
-            Solution
-        """
-        pass
-
-    @property
-    @abstractmethod
-    def name(self) -> str:
-        """
-        Name of the solver.
-
-        Returns
-        -------
-        str
-            Name of the solver.
-        """
-        pass
-
-    def __repr__(self):
-        return self.name
+from ..utils import isfullrank, issquare, Solver
     
 class Exact(Solver):
     """
